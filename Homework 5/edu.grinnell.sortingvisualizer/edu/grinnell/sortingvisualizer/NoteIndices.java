@@ -1,17 +1,24 @@
 package edu.grinnell.sortingvisualizer;
 
+import java.util.Arrays;
+
 /**
  * A collection of indices into a Scale object.
  * These indices are the subject of the various sorting algorithms
  * in the program.
  */
 public class NoteIndices {
+	
+	int[] indices;
 
     /**
      * @param n the size of the scale object that these indices map into
      */
     public NoteIndices(int n) {
-        // TODO: fill me in
+        indices = new int[n];
+        for(int i = 0; i < n; i++) {
+        	indices[i] = i;
+        }
     }
     
     /**
@@ -21,7 +28,10 @@ public class NoteIndices {
      * @param n the size of the scale object that these indices map into
      */
     public void initializeAndShuffle(int n) {
-        // TODO: fill me in
+        indices = Arrays.copyOf(indices, n);
+        for(int i = 0; i < n; i++) {
+        	indices[i] = i;
+        }
     }
     
     /** @return the indices of this NoteIndices object */

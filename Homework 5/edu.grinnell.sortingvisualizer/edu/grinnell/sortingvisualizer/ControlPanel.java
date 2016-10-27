@@ -47,15 +47,17 @@ public class ControlPanel extends JPanel {
     private static List<SortEvent<Integer>> generateEvents(String sort, Integer[] arr) {
         switch (sort) {
         case "Selection":
-            //return Sorts.selectionSort(arr);
+            return Sorts.selectionSort(arr);
         case "Insertion":
-            //return Sorts.insertionSort(arr);
+            return Sorts.insertionSort(arr);
         case "Bubble":
-            //return Sorts.bubbleSort(arr);
+            return Sorts.bubbleSort(arr);
         case "Merge":
-            //return Sorts.mergeSort(arr);
+            return Sorts.mergeSort(arr);
         case("Quick"):
-            //return Sorts.quickSort(arr);
+            return Sorts.quickSort(arr);
+        case("Shell"):
+            return Sorts.shellSort(arr);
         default:
             throw new IllegalArgumentException("generateEvents");
         }
