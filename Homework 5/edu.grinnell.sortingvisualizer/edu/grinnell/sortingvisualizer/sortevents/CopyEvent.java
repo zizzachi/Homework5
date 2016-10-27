@@ -1,8 +1,6 @@
 package edu.grinnell.sortingvisualizer.sortevents;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class CopyEvent<T> implements SortEvent<T> {
 
@@ -21,8 +19,8 @@ public class CopyEvent<T> implements SortEvent<T> {
 	}
 
 	public List<Integer> getAffectedIndices() {
-		List<Integer> list = new LinkedList<Integer>();
-		list.add(this.i); ////////////////////////////////
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(this.i);
 		return list;
 	}
 

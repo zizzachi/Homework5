@@ -1,14 +1,13 @@
 package edu.grinnell.sortingvisualizer.sortevents;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class SwapEvent<T> implements SortEvent<T> {
 	
 	/* indices being swapped */
 	public int i;
 	public int j;
+	public String type = "Swap";
 	
 	/* Constructor */
 	public SwapEvent(int val1, int val2) {
@@ -23,9 +22,9 @@ public class SwapEvent<T> implements SortEvent<T> {
 	}
 
 	public List<Integer> getAffectedIndices() {
-		List<Integer> list = new LinkedList<Integer>();
-		list.add(this.i); ////////////////////////////////
-		list.add(this.j); ////////////////////////////////
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(this.i);
+		list.add(this.j);
 		return list;
 	}
 

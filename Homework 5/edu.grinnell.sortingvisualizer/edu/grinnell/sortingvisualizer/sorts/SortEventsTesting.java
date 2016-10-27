@@ -1,30 +1,36 @@
 package edu.grinnell.sortingvisualizer.sorts;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import edu.grinnell.sortingvisualizer.sortevents.*;
+import java.util.*;
 
-public class Sorts {
+import edu.grinnell.sortingvisualizer.sortevents.CompareEvent;
+import edu.grinnell.sortingvisualizer.sortevents.SortEvent;
+import edu.grinnell.sortingvisualizer.sortevents.SwapEvent;
+
+public class SortEventsTesting {
 	
 	/** Takes an array and sorts it one element at a time by walking through the array and
 	 * finding a minimum value before moving it to the end of the sorted sub-array at the front
 	 * of the array
 	 * @param arr and array of integers
 	 */
-	public static <T extends Comparable<T>> void selectionSort(T[] arr) {
+	public static <T extends Comparable<T>> List<SortEvent<T>> selectionSort(T[] arr) {
+		List<SortEvent<T>> events = new ArrayList<SortEvent<T>>();
 		for(int i = 0; i < arr.length; i++) {
 			int min = i;
 			for(int j = i; j < arr.length; j++) {
 				if(arr[j].compareTo(arr[min]) < 0) {
+					/* Add event */
+					events.add(new CompareEvent<T>(j, min));
 					min = j;
 				}
 			}
+			/* Add event */
+			events.add(new SwapEvent<T>(i, min));
 			T temp = arr[i];
 			arr[i] = arr[min];
 			arr[min] = temp;
 		}
+		return events;
 	}
 	
 	/** Takes an array and inserts next element of the unsorted sub-array into its proper
@@ -32,9 +38,15 @@ public class Sorts {
 	 * @param arr and array of integers
 	 */
 	public static <T extends Comparable<T>> void insertionSort(T[] arr) {
+		List<SortEvent<T>> events = new ArrayList<SortEvent<T>>();
 		for(int i = 1; i < arr.length; i++) {
 			int j = i; //index of unsorted element
 			while(j > 0 && arr[j - 1].compareTo(arr[j]) > 0) {
+				
+				/* Add events */
+				events.add(new CompareEvent<T>(j - 1, j));
+				events.add(new SwapEvent<T>(j - 1, j));
+				
 				T temp = arr[j];
 				arr[j] = arr[j - 1];
 				arr[j - 1] = temp;
@@ -217,26 +229,21 @@ public class Sorts {
 		int i = 0;
 		while(i < events.size()) {
 			//if(events.get(0) instanceof SwapEvent) {
-			System.out.println(events.get(i));
 			events.get(i).apply(arr);
 			i++;
 		}
 	}
-	
+
 	public static void main(String[] args) {
-		List<SortEvent<Integer>> events = new LinkedList<SortEvent<Integer>>();
+		List<SortEvent<Integer>> events = new ArrayList<SortEvent<Integer>>();
 		Integer[] arr = new Integer[] {3, 1, 2};
 		
-		events.add(new SwapEvent<Integer>(0, 1));
-		events.add(new SwapEvent<Integer>(1, 2));
-		
-		System.out.println(Arrays.toString(arr));
-		eventSort(arr, events);
-		System.out.println(Arrays.toString(arr));
+		events = selectionSort(arr);
+
+		Integer[] arr1 = new Integer[] {3, 1, 2};
+		System.out.println(Arrays.toString(arr1));
+		eventSort(arr1, events);
+		System.out.println(Arrays.toString(arr1));
 	}
 
-	
-	////create linked list, list
-	////when swap occurs: list.add(new SwapEvent(index1, index2));
-	
 }
