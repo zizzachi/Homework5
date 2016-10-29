@@ -1,6 +1,5 @@
 package edu.grinnell.sortingvisualizer;
 
-import java.util.Arrays;
 
 /**
  * A collection of indices into a Scale object.
@@ -9,13 +8,13 @@ import java.util.Arrays;
  */
 public class NoteIndices {
 	
-	int[] indices;
+	Integer[] indices;
 
     /**
      * @param n the size of the scale object that these indices map into
      */
     public NoteIndices(int n) {
-        indices = new int[n];
+        indices = new Integer[n];
         for(int i = 0; i < n; i++) {
         	indices[i] = i;
         }
@@ -28,7 +27,7 @@ public class NoteIndices {
      * @param n the size of the scale object that these indices map into
      */
     public void initializeAndShuffle(int n) {
-        indices = Arrays.copyOf(indices, n);
+        indices = new Integer[n];
         for(int i = 0; i < n; i++) {
         	indices[i] = i;
         }
@@ -36,8 +35,7 @@ public class NoteIndices {
     
     /** @return the indices of this NoteIndices object */
     public Integer[] getNotes() { 
-        // TODO: fill me in
-        return null;
+        return indices;
     }
     
     /**
@@ -45,17 +43,18 @@ public class NoteIndices {
      * @param index the index to highlight
      */
     public void highlightNote(int index) {
-        // TODO: fill me in
+        indices[index] = -index;
     }
     
     /** @return true if the given index is highlighted */
     public boolean isHighlighted(int index) {
-        // TODO: fill me in
-        return false;
+    	return indices[index] < 0;
     }
     
     /** Clears all highlighted indices from this collection */
     public void clearAllHighlighted() {
-        // TODO: fill me in
+        for(int i = 0; i < indices.length; i++) {
+        	indices[i] = Math.abs(indices[i]);
+        }
     }
 }

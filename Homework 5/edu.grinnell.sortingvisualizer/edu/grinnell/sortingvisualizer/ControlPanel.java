@@ -107,7 +107,8 @@ public class ControlPanel extends JPanel {
            "Insertion",
            "Bubble",
            "Merge",
-           "Quick"
+           "Quick",
+           "Shell"
         });
         add(sorts);
         
@@ -143,7 +144,10 @@ public class ControlPanel extends JPanel {
                 // TODO: fill me in
                 // 1. Create the sorting events list
                 // 2. Add in the compare events to the end of the list
-                List<SortEvent<Integer>> events = new java.util.LinkedList<>();
+                //List<SortEvent<Integer>> events = new java.util.ArrayList<>();
+                Integer[] originalNotes = notes.getNotes();
+                Integer[] temp = Arrays.copyOf(originalNotes, originalNotes.length);
+                List<SortEvent<Integer>> events = generateEvents((String)sorts.getSelectedItem(), temp);
                 
                 // NOTE: The Timer class repetitively invokes a method at a
                 //       fixed interval.  Here we are specifying that method
@@ -164,6 +168,15 @@ public class ControlPanel extends JPanel {
                             // 3. Play the corresponding notes denoted by the
                             //    affected indices logged in the event.
                             // 4. Highlight those affected indices.
+                            e.apply(originalNotes);
+//                            noteOn(int noteNumber, int velocity)
+//                            Starts the specified note sounding.\
+                            List<Integer> affected = e.getAffectedIndices();
+                            int i = 0;
+                            while(i < affected.size()) {
+                            	scale.playNote(affected.get(i), e.isEmphasized());
+                            	notes.highlightNote((int)affected.get(i));
+                            }
                             panel.repaint();
                         } else {
                             this.cancel();

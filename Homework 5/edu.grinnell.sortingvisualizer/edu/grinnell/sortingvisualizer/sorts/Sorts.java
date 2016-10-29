@@ -267,8 +267,7 @@ public class Sorts {
 	public static <T extends Comparable<T>> void eventSort(T[] arr, List<SortEvent<T>> events) {
 		int i = 0;
 		while(i < events.size()) {
-			events.get(i).apply(arr);
-			i++;
+			events.get(i++).apply(arr);
 		}
 	}
 
